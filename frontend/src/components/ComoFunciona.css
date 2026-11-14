@@ -1,0 +1,26 @@
+.como { padding: 90px 8%; text-align: center; }
+.como h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 50px;
+}
+.como-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.como-card {
+  background: #fff;
+  padding: 36px 28px;
+  border-radius: var(--radio);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s;
+}
+.como-card:hover { transform: translateY(-8px); }
+.como-card span {
+  color: var(--naranja);
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+.como-card h3 { margin: 12px 0 10px; }
+.como-card p { font-weight: 300; line-height: 1.6; }
