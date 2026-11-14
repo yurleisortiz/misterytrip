@@ -1,0 +1,32 @@
+.tarjeta {
+  background: #fff;
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s;
+}
+.tarjeta:hover { transform: translateY(-8px); }
+.tarjeta img { height: 200px; width: 100%; object-fit: cover; }
+.tarjeta-cuerpo { padding: 22px; }
+.etiqueta {
+  background: var(--turquesa);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.tarjeta h3 { margin: 12px 0 4px; }
+.destino { font-size: 0.85rem; color: #6b7785; margin-bottom: 12px; }
+.tarjeta ul { list-style: none; font-size: 0.85rem; line-height: 1.8; margin-bottom: 14px; }
+.precio { font-weight: 700; font-size: 1.2rem; margin-bottom: 14px; }
+.btn-elegir {
+  display: block;
+  text-align: center;
+  background: var(--azul);
+  color: #fff;
+  padding: 10px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+.btn-elegir:hover { background: var(--naranja); }

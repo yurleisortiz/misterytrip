@@ -1,0 +1,30 @@
+.paquetes { padding: 130px 8% 80px; text-align: center; }
+.paquetes h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+.sub { color: #6b7785; margin: 8px 0 30px; }
+
+.filtros {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.filtros select {
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: 1px solid #d5dce4;
+  font-family: inherit;
+  background: #fff;
+  cursor: pointer;
+}
+
+.grid-paquetes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 26px;
+  text-align: left;
+}
+.vacio { color: #6b7785; padding: 40px 0; }
