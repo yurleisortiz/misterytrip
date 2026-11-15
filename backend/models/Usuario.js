@@ -1,0 +1,9 @@
+const mongoose = require('mongoose')
+
+// Usuario administrador. La contraseña se guarda encriptada.
+const usuarioSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  password: { type: String, required: true },
+})
+
+module.exports = mongoose.model('Usuario', usuarioSchema)
