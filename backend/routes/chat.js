@@ -2,7 +2,7 @@ const express = require('express')
 const Paquete = require('../models/Paquete')
 const router = express.Router()
 
-const MODELO = process.env.GEMINI_MODEL || 'gemini-3.8-flash'
+const MODELO = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite'
 
 // POST /api/chat -> recibe el historial y devuelve la respuesta de la IA
 router.post('/', async (req, res) => {
@@ -48,6 +48,8 @@ ${catalogo}
           systemInstruction: { parts: [{ text: instrucciones }] },
           contents,
         }),
+        // Si Gemini no responde en 25 segundos, se corta y muestra el error
+        signal: AbortSignal.timeout(25000),
       }
     )
 
@@ -60,7 +62,7 @@ ${catalogo}
     const texto = datos.candidates?.[0]?.content?.parts?.map((p) => p.text).join('')
     res.json({ respuesta: texto || 'No pude responder eso. ¿Me lo dices de otra forma?' })
   } catch (error) {
-    console.error(error)
+    console.error('Fallo del chat:', error.name, error.message)
     res.status(500).json({ mensaje: 'Error al hablar con la IA' })
   }
 })
