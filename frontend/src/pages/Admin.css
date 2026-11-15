@@ -55,3 +55,6 @@
   .admin-form { grid-template-columns: 1fr; }
   .fila-admin { flex-direction: column; align-items: flex-start; }
 }
+.acciones .gris { background: #9aa5b1; }
+.estado-ok { color: #2e9e6b !important; font-weight: 600; }
+.estado-pend { color: var(--naranja) !important; font-weight: 600; }    

@@ -10,6 +10,7 @@ export default function Admin() {
   const [tab, setTab] = useState('paquetes')
   const [paquetes, setPaquetes] = useState([])
   const [mensajes, setMensajes] = useState([])
+  const [testimonios, setTestimonios] = useState([])
   const [form, setForm] = useState(vacio)
   const [editando, setEditando] = useState(null)
   const [cargando, setCargando] = useState(true)
@@ -20,11 +21,12 @@ export default function Admin() {
     navigate('/login')
   }
 
-  // Trae paquetes y mensajes. Si el token venció, cierra la sesión
+  // Trae paquetes, mensajes y experiencias. Si el token venció, cierra la sesión
   const cargar = async () => {
     try {
       setPaquetes(await apiFetch('/api/paquetes'))
       setMensajes(await apiFetch('/api/contacto'))
+      setTestimonios(await apiFetch('/api/testimonios/todos'))
     } catch (err) {
       if (err.message.includes('Sesión') || err.message.includes('autorizado')) return salir()
       setError(err.message)
@@ -78,25 +80,27 @@ export default function Admin() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const eliminarPaquete = async (id) => {
-    if (!window.confirm('¿Eliminar este paquete?')) return
+  const eliminar = async (ruta, texto) => {
+    if (!window.confirm(texto)) return
     try {
-      await apiFetch(`/api/paquetes/${id}`, { method: 'DELETE' })
+      await apiFetch(ruta, { method: 'DELETE' })
       cargar()
     } catch (err) {
       setError(err.message)
     }
   }
 
-  const eliminarMensaje = async (id) => {
-    if (!window.confirm('¿Eliminar este mensaje?')) return
+  // Aprueba o quita una experiencia de la página
+  const cambiarAprobado = async (id, aprobado) => {
     try {
-      await apiFetch(`/api/contacto/${id}`, { method: 'DELETE' })
+      await apiFetch(`/api/testimonios/${id}`, { method: 'PUT', body: JSON.stringify({ aprobado }) })
       cargar()
     } catch (err) {
       setError(err.message)
     }
   }
+
+  const pendientes = testimonios.filter((t) => !t.aprobado).length
 
   if (cargando) return <p className="admin-cargando">Cargando panel...</p>
 
@@ -113,6 +117,9 @@ export default function Admin() {
         </button>
         <button className={tab === 'mensajes' ? 'tab activa' : 'tab'} onClick={() => setTab('mensajes')}>
           Mensajes ({mensajes.length})
+        </button>
+        <button className={tab === 'experiencias' ? 'tab activa' : 'tab'} onClick={() => setTab('experiencias')}>
+          Experiencias ({pendientes} pendientes)
         </button>
       </div>
 
@@ -147,7 +154,9 @@ export default function Admin() {
                 </div>
                 <div className="acciones">
                   <button onClick={() => editar(p)}>Editar</button>
-                  <button className="rojo" onClick={() => eliminarPaquete(p._id)}>Eliminar</button>
+                  <button className="rojo" onClick={() => eliminar(`/api/paquetes/${p._id}`, '¿Eliminar este paquete?')}>
+                    Eliminar
+                  </button>
                 </div>
               </div>
             ))}
@@ -167,7 +176,40 @@ export default function Admin() {
                 <p>{m.mensaje}</p>
               </div>
               <div className="acciones">
-                <button className="rojo" onClick={() => eliminarMensaje(m._id)}>Eliminar</button>
+                <button className="rojo" onClick={() => eliminar(`/api/contacto/${m._id}`, '¿Eliminar este mensaje?')}>
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {tab === 'experiencias' && (
+        <div className="tabla">
+          {testimonios.length === 0 && <p className="admin-cargando">Aún no hay experiencias.</p>}
+          {testimonios.map((t) => (
+            <div className="fila-admin mensaje" key={t._id}>
+              <div>
+                <strong>{t.nombre}</strong>
+                <span>
+                  {'★'.repeat(t.calificacion)}{'☆'.repeat(5 - t.calificacion)}
+                  {t.viaje && ` · ${t.viaje}`} · {new Date(t.fecha).toLocaleDateString('es-CO')}
+                </span>
+                <span className={t.aprobado ? 'estado-ok' : 'estado-pend'}>
+                  {t.aprobado ? 'Publicada' : 'Pendiente'}
+                </span>
+                <p>{t.comentario}</p>
+              </div>
+              <div className="acciones">
+                {t.aprobado ? (
+                  <button className="gris" onClick={() => cambiarAprobado(t._id, false)}>Ocultar</button>
+                ) : (
+                  <button onClick={() => cambiarAprobado(t._id, true)}>Aprobar</button>
+                )}
+                <button className="rojo" onClick={() => eliminar(`/api/testimonios/${t._id}`, '¿Eliminar esta experiencia?')}>
+                  Eliminar
+                </button>
               </div>
             </div>
           ))}

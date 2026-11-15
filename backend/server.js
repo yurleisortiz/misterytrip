@@ -14,6 +14,7 @@ app.use('/api/paquetes', require('./routes/paquetes'))
 app.use('/api/contacto', require('./routes/contacto'))  
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/chat', require('./routes/chat'))  
+app.use('/api/testimonios', require('./routes/testimonios'))  
 
 
 const PORT = process.env.PORT || 4000
