@@ -1,22 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
-
-:root {
-  --azul: #0b1d3a;
-  --turquesa: #1fb5a8;
-  --naranja: #f7941d;
-  --oscuro: #111418;
-  --claro: #f7f9fc;
-  --texto: #1c2733;
-  --radio: 16px;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: 'Poppins', sans-serif;
-  color: var(--texto);
-  background: var(--claro);
-}
-
-img { max-width: 100%; display: block; }
-a { text-decoration: none; color: inherit; }
+<!doctype html>
+<html lang="es" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MisteryTrip | Viajes sorpresa</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
