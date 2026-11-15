@@ -1,11 +1,26 @@
-import { useState } from 'react'
-import { paquetes } from '../services/paquetes'
+import { useState, useEffect } from 'react'
+import { API_URL } from '../services/api'
 import TarjetaPaquete from '../components/TarjetaPaquete'
 import './Paquetes.css'
 
 export default function Paquetes() {
+  const [paquetes, setPaquetes] = useState([])
+  const [cargando, setCargando] = useState(true)
+  const [error, setError] = useState('')
   const [presupuesto, setPresupuesto] = useState('todos')
   const [dias, setDias] = useState('todos')
+
+  // Pide los paquetes al backend al abrir la página
+  useEffect(() => {
+    fetch(`${API_URL}/api/paquetes`)
+      .then((res) => {
+        if (!res.ok) throw new Error()
+        return res.json()
+      })
+      .then((datos) => setPaquetes(datos))
+      .catch(() => setError('No pudimos cargar los paquetes. Intenta de nuevo.'))
+      .finally(() => setCargando(false))
+  }, [])
 
   // Aplica los dos filtros a la lista
   const filtrados = paquetes.filter((p) => {
@@ -37,15 +52,18 @@ export default function Paquetes() {
         </select>
       </div>
 
-      {filtrados.length === 0 ? (
+      {cargando && <p className="vacio">Cargando paquetes...</p>}
+      {error && <p className="vacio error">{error}</p>}
+
+      {!cargando && !error && filtrados.length === 0 && (
         <p className="vacio">No hay paquetes con esos filtros. Prueba con otros.</p>
-      ) : (
-        <div className="grid-paquetes">
-          {filtrados.map((p) => (
-            <TarjetaPaquete key={p.id} paquete={p} />
-          ))}
-        </div>
       )}
+
+      <div className="grid-paquetes">
+        {filtrados.map((p) => (
+          <TarjetaPaquete key={p._id} paquete={p} />
+        ))}
+      </div>
     </section>
   )
 }

@@ -28,3 +28,4 @@
   text-align: left;
 }
 .vacio { color: #6b7785; padding: 40px 0; }
+.error { color: #d64545; font-weight: 600; }
