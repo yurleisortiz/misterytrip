@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Chatbot from './components/Chatbot'
 import RutaProtegida from './components/RutaProtegida'
 import Home from './pages/Home'
 import Paquetes from './pages/Paquetes'
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<RutaProtegida><Admin /></RutaProtegida>} />
       </Routes>
+      <Chatbot />
     </>
   )
-} 
+}
