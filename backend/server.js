@@ -11,6 +11,7 @@ app.use(express.json())
 
 app.get('/', (req, res) => res.json({ ok: true, app: 'MisteryTrip API' }))
 app.use('/api/paquetes', require('./routes/paquetes'))
+app.use('/api/contacto', require('./routes/contacto'))  
 
 const PORT = process.env.PORT || 4000
 

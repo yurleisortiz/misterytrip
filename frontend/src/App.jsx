@@ -10,7 +10,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/paquetes" element={<Paquetes />} />
+        <Route path="/contacto" element={<Contacto />} />
       </Routes>
     </>
   )
 }
+import Contacto from './pages/Contacto'
