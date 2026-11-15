@@ -1,0 +1,42 @@
+.tipos { padding: 90px 8%; text-align: center; }
+.tipos h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+.tipos-sub { color: #6b7785; margin: 8px 0 40px; }
+
+.tipos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+.tipo { height: 240px; perspective: 1000px; cursor: pointer; }
+.tipo-int {
+  position: relative;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s;
+}
+.tipo-int.volteada { transform: rotateY(180deg); }
+@media (hover: hover) {
+  .tipo:hover .tipo-int { transform: rotateY(180deg); }
+}
+
+.tipo-cara {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+.tipo-frente { background: #fff; }
+.tipo-frente span { font-size: 3.2rem; }
+.tipo-atras { background: var(--azul); color: #fff; transform: rotateY(180deg); }
+.tipo-atras p { font-weight: 300; line-height: 1.6; }
+.tipo-atras a { color: var(--naranja); font-weight: 600; }

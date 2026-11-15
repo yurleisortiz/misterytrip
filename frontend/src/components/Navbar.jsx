@@ -13,6 +13,7 @@ export default function Navbar() {
       <nav className={abierto ? 'links abierto' : 'links'}>
         <Link to="/" onClick={cerrar}>Inicio</Link>
         <Link to="/paquetes" onClick={cerrar}>Paquetes</Link>
+         <Link to="/quiz" onClick={cerrar}>Quiz</Link>   
         <Link to="/contacto" onClick={cerrar}>Contacto</Link>
       </nav>
 
