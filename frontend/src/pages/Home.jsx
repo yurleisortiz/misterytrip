@@ -6,6 +6,7 @@ import TiposViaje from '../components/TiposViaje'
 import Experiencias from '../components/Experiencias'
 import RevelaPista from '../components/RevelaPista'
 import './Home.css'
+import Testimonios from '../components/Testimonios'
 
 // Fondos y palabras que rotan juntos cada 5 segundos
 const fondos = [
@@ -101,6 +102,7 @@ export default function Home() {
       <Experiencias />
       <RevelaPista />
 
+      <Testimonios /> 
       <section className="cta-quiz">
         <h2>Tu próxima aventura podría estar a solo un clic de distancia</h2>
         <p>Responde 4 preguntas y descubre el viaje sorpresa que va contigo.</p>
