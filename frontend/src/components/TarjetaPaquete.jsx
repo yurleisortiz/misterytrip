@@ -25,7 +25,7 @@ export default function TarjetaPaquete({ paquete }) {
           ))}
         </ul>
         <p className="precio">${precio.toLocaleString('es-CO')} COP</p>
-        <Link to="/contacto" className="btn-elegir">Elegir</Link>
+        <Link to={`/paquete/${paquete._id}`} className="btn-elegir">Ver detalle</Link>
       </div>
     </motion.article>
   )

@@ -11,6 +11,7 @@ import Contacto from './pages/Contacto'
 import Quiz from './pages/Quiz'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
+import Detalle from './pages/Detalle' 
 
 export default function App() {
   const location = useLocation()
@@ -40,6 +41,7 @@ export default function App() {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/paquetes" element={<Paquetes />} />
+                        <Route path="/paquete/:id" element={<Detalle />} /> 
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/login" element={<Login />} />

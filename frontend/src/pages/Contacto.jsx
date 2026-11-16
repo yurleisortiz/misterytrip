@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { API_URL } from '../services/api'
 import './Contacto.css'
@@ -6,7 +7,9 @@ import './Contacto.css'
 const vacio = { nombre: '', email: '', presupuesto: '', dias: '', mensaje: '' }
 
 export default function Contacto() {
-  const [datos, setDatos] = useState(vacio)
+  // Si llega desde el detalle de un paquete, el mensaje ya viene escrito
+  const location = useLocation()
+  const [datos, setDatos] = useState({ ...vacio, mensaje: location.state?.mensaje || '' })
   const [estado, setEstado] = useState('inicial') // inicial | enviando | ok | error
   const [aviso, setAviso] = useState('')
 
@@ -71,7 +74,13 @@ export default function Contacto() {
           </select>
         </div>
 
-        <textarea name="mensaje" rows="5" placeholder="¿Qué te gusta? ¿Qué quieres vivir?" value={datos.mensaje} onChange={cambiar} />
+        <textarea
+          name="mensaje"
+          rows="5"
+          placeholder="¿Qué te gusta? ¿Qué quieres vivir?"
+          value={datos.mensaje}
+          onChange={cambiar}
+        />
 
         <button type="submit" disabled={estado === 'enviando'}>
           {estado === 'enviando' ? 'Enviando...' : 'Enviar mensaje'}

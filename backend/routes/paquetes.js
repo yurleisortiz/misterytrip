@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const Paquete = require('../models/Paquete')
 const auth = require('../middleware/auth')
 const router = express.Router()
@@ -10,6 +11,20 @@ router.get('/', async (req, res) => {
     res.json(paquetes)
   } catch (error) {
     res.status(500).json({ mensaje: 'Error al obtener los paquetes' })
+  }
+})
+
+// GET /:id -> público, un solo paquete
+router.get('/:id', async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(404).json({ mensaje: 'Paquete no encontrado' })
+  }
+  try {
+    const paquete = await Paquete.findById(req.params.id)
+    if (!paquete) return res.status(404).json({ mensaje: 'Paquete no encontrado' })
+    res.json(paquete)
+  } catch (error) {
+    res.status(500).json({ mensaje: 'Error al obtener el paquete' })
   }
 })
 
